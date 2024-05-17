@@ -1,0 +1,27 @@
+{
+  "name": "bloglist",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/melikedi/FullstackopenPart4.git"
+  },
+  "author": "Melike Muftuoglu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/melikedi/FullstackopenPart4/issues"
+  },
+  "homepage": "https://github.com/melikedi/FullstackopenPart4#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
