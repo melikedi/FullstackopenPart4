@@ -1,0 +1,54 @@
+###
+GET   http://localhost:3001/api/blogs
+
+###
+DELETE http://localhost:3001/api/blogs/66a0d73849a04f631961a91a
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1lbGlrZWRpQGdtYWlsLmNvbSIsImlkIjoiNjZhMGQyMTMyMTFhODIyZDI5ZDc3ZWVkIiwiaWF0IjoxNzIxODIzMDA3fQ.kxg_FyfL-4aebx8kzFJFEHuL6Hvwf0JNnMsDQwyPmUk
+
+###
+DELETE http://localhost:3001/api/blogs/66a0e8345ba53a599d01b915
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3RAZ21haWwuY29tIiwiaWQiOiI2NmEwZDIxNTIxMWE4MjJkMjlkNzdlZWYiLCJpYXQiOjE3MjE4MjI4MTR9.5-5jRwtH6CnegnmpOvpLzZANacS4-0KuurHPvDujjg8
+###
+POST http://localhost:3001/api/blogs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1lbGlrZWRpQGdtYWlsLmNvbSIsImlkIjoiNjZhMGQyMTMyMTFhODIyZDI5ZDc3ZWVkIiwiaWF0IjoxNzIxODE1NjczfQ.OUQUKo1_dfrhZ-Y6eNMXwq80l5wJ-tiaSPj6w_RGcbw
+content-type: application/json
+
+  {
+    "title": "melikedi's blog 1",
+    "author": "melike",
+    "url": "www.ddd.com",
+    "likes": 1
+  }
+
+###
+POST http://localhost:3001/api/blogs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3RAZ21haWwuY29tIiwiaWQiOiI2NmEwZDIxNTIxMWE4MjJkMjlkNzdlZWYiLCJpYXQiOjE3MjE4MTU3MzB9.eD9q-PO-3CuHjpQqSdxsmZk1quK3ofKrfmKJGbDARHM
+content-type: application/json
+
+  {
+    "title": "root's blog1",
+    "author": "root",
+    "url": "www.aaa.com",
+    "likes": 1
+  }
+###
+POST http://localhost:3001/api/blogs
+content-type: application/json
+
+{
+            "title": "New Blog Test",
+            "author": "New Blog Test Author",
+            "url": "http://newblogtest.com",
+            "likes": 12
+        }
+###
+PUT http://localhost:3001/api/blogs/66a0d73849a04f631961a91a
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1lbGlrZWRpQGdtYWlsLmNvbSIsImlkIjoiNjZhMGQyMTMyMTFhODIyZDI5ZDc3ZWVkIiwiaWF0IjoxNzIxODE1NjczfQ.OUQUKo1_dfrhZ-Y6eNMXwq80l5wJ-tiaSPj6w_RGcbw
+content-type: application/json
+
+  {
+    "title": "Blog1",
+    "author": "MelikeFunda",
+    "url": "www.melikesblog.com",
+    "likes": 45
+  }

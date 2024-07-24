@@ -1,0 +1,19 @@
+###
+POST http://localhost:3001/api/login
+content-type: application/json
+
+{
+    "username": "melikedi@gmail.com",
+    "password": "aurora"
+  }
+
+
+###
+POST http://localhost:3001/api/login
+content-type: application/json
+
+{
+    "username": "root@gmail.com",
+    "password": "aurora"
+  }
+
