@@ -13,7 +13,7 @@ describe('user & blog tests when there is initially some blogs saved and root us
   beforeEach(async() => {
     await User.deleteMany({})
     const passwordHash = await bcrypt.hash('sekret', 10)
-    const user = new User({ username: 'root', passwordHash })
+    const user = new User({ username: 'root', passwordHash, name: 'root' })
     savedUser = await user.save()
 
     await Blog.deleteMany({})

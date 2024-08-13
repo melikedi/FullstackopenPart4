@@ -1,6 +1,6 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
-
+const User = require('../models/user')
 
 blogsRouter.get('/', async(request, response) => {
     const blogs = await Blog.find({}).populate("user")
@@ -10,14 +10,16 @@ blogsRouter.post('/', async(request, response, next) => {
     
     const blog = new Blog(request.body)
     const user = request.user
+   
     if (user) {
+      const userToUpdate = await User.findById(user.id)
       if (request.body.hasOwnProperty('likes') == false) {
         blog['likes'] = 0
       }
       blog.user = user._id
       const savedBlog = await blog.save()
-      user.blogs = user.blogs.concat(savedBlog.id)
-      await user.save()
+      userToUpdate.blogs = userToUpdate.blogs.concat(savedBlog.id)
+      await userToUpdate.save()
       response.status(201).json(savedBlog).end()
     } else {
       return response.status(401).json({ error: 'token invalid' })
@@ -25,6 +27,21 @@ blogsRouter.post('/', async(request, response, next) => {
 
    
 })
+blogsRouter.delete('/', async(request, response) => {
+  const user = request.user
+  const userToUpdate = await User.findById(user.id)
+  if (user) {
+    await Blog.deleteMany({ 'user': user.id })
+    response.status(204).end()
+    userToUpdate.blogs = []
+    await userToUpdate.save()
+  } else {
+    return response.status(401).json({ error: 'token invalid' })
+  }
+
+  
+})
+
 blogsRouter.delete('/:id', async(request, response) => {
   const id = request.params.id
   const blogToDelete = await Blog.findById(id)
@@ -50,20 +67,24 @@ blogsRouter.put('/:id', async (request, response) => {
   const user = request.user
   if (!user) {
     return response.status(401).json({ error: 'token invalid' })
-   }
-  const body = request.body
-  const blog = {
-    title: body.title,
-    url: body.url,
-    author: body.author,
-    likes: body.likes
   }
   const blogToUpdate = await Blog.findById(id)
   if (!blogToUpdate) {
     response.status(401).json({ error: 'blog not found' })
   } else {
+    const body = request.body
+    const blog = {
+      title: body.title,
+      url: body.url,
+      author: body.author,
+      likes: body.likes,
+      user:user.id.toString()
+    }
     const updatedBlog = await Blog.findOneAndUpdate( {_id : id}, blog, { new: true })
+
     response.status(201).json(updatedBlog).end()
-  }
+  } 
+
+
 })
 module.exports = blogsRouter
