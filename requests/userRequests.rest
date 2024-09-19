@@ -2,12 +2,15 @@
 GET   http://localhost:3001/api/users
 
 ###
+DELETE   http://localhost:3001/api/users/66a0d213211a822d29d77eed
+
+###
 POST http://localhost:3001/api/users
 content-type: application/json
 
 {
-    "username": "melikedi@gmail.com",
-    "name": "melikedi",
+    "username": "user3@gmail.com",
+    "name": "Venla Luuska",
     "password": "aurora"
 }
 ###

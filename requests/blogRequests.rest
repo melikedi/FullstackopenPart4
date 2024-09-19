@@ -1,5 +1,15 @@
 ###
 GET   http://localhost:3001/api/blogs
+
+###
+POST http://localhost:3001/api/blogs/66ec297242bf5fe35cbddf66/comments
+content-type: application/json
+
+{
+  "content": "this is first comment"
+}
+
+
 ###
 DELETE http://localhost:3001/api/blogs
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1lbGlrZWRpQGdtYWlsLmNvbSIsImlkIjoiNjZhMGQyMTMyMTFhODIyZDI5ZDc3ZWVkIiwiaWF0IjoxNzIxODIzMDA3fQ.kxg_FyfL-4aebx8kzFJFEHuL6Hvwf0JNnMsDQwyPmUk
@@ -50,7 +60,7 @@ content-type: application/json
             "likes": 12
         }
 ###
-PUT http://localhost:3001/api/blogs/66a7f60047f3fd59bdea6618
+PUT http://localhost:3001/api/blogs/66ec297242bf5fe35cbddf66
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1lbGlrZWRpQGdtYWlsLmNvbSIsImlkIjoiNjZhMGQyMTMyMTFhODIyZDI5ZDc3ZWVkIiwiaWF0IjoxNzIxODE1NjczfQ.OUQUKo1_dfrhZ-Y6eNMXwq80l5wJ-tiaSPj6w_RGcbw
 content-type: application/json
 

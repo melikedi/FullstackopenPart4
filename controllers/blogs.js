@@ -1,11 +1,34 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 const User = require('../models/user')
-
+const Comment = require('../models/comment')
 blogsRouter.get('/', async(request, response) => {
-    const blogs = await Blog.find({}).populate("user")
+    const blogs = await Blog.find({}).populate("comments").populate("user")
     response.json(blogs)
 })
+
+blogsRouter.post('/:id/comments', async (req, res) => {
+  const { content } = req.body;
+  const blogId = req.params.id;
+
+  // Create a new comment
+  const comment = new Comment({
+    content,
+    blog: blogId // Link comment to the blog
+  });
+  // Save the comment
+  const savedComment = await comment.save();
+
+  // Add the comment's ObjectId to the blog's comments array
+  const blog = await Blog.findById(blogId);
+  blog.comments = blog.comments.concat(savedComment._id);
+  
+  // Save the updated blog
+  await blog.save();
+
+  res.status(201).json(savedComment);
+});
+
 blogsRouter.post('/', async(request, response, next) => {
     
     const blog = new Blog(request.body)
@@ -53,9 +76,12 @@ blogsRouter.delete('/:id', async(request, response) => {
     response.status(401).json({ error: 'blog not found' })
   }
   if((!blogToDelete.user) || blogToDelete.user.toString()===user.id.toString()) {
-    await Blog.deleteOne(blogToDelete)
-    user.blogs = user.blogs.filter(item => item !== Blog)
-    await user.save()
+    const result = await Blog.deleteOne({ _id: blogToDelete.id })
+    const resultComments = await Comment.deleteMany({ blog: blogToDelete.id })
+    console.log("resultComments",resultComments)
+    user.blogs = user.blogs.filter(item => item.id !== blogToDelete.id)
+    const savedUser = await user.save()
+    console.log("savedUser",savedUser)
     response.status(204).end()
   } else {
     response.status(401).json({ error: 'a blog can be deleted only by the user who added it' })
@@ -77,8 +103,7 @@ blogsRouter.put('/:id', async (request, response) => {
       title: body.title,
       url: body.url,
       author: body.author,
-      likes: body.likes,
-      user:user.id.toString()
+      likes: body.likes
     }
     const updatedBlog = await Blog.findOneAndUpdate( {_id : id}, blog, { new: true })
 
